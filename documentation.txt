@@ -1,0 +1,28 @@
+Hey guys!
+
+I got most of this done, I didn't have just enough time to narrow down one last bug unfortunately, the ability to do "A to A" and make it go around instead of 0 distance and single destination of itself.
+
+It works fairly well otherwise, UI doesn't halt because it doesn't wait for other things to finish, as it is called through SwingUtilities.invokeLater(). Pretty straight forward UI over the top of the backend code. Click on the city names on the left hand side to pick start, middle, end destinations. Click calculate for the results to appear on the right hand side. Click reset to clear it all and start again or you can continue to append to the route you were already working on.
+
+To edit the routes easily, I made the program read the paths and weights in from a text file stored beside the main class file. Just open it with a text editor and save then reload program. One thing I would like to do is add an editor to that data in the UI and make it save back so that at runtime you can change the path weightings. Follow the format of "City One, City Two, 0.0"
+
+One change I made from the start was the data that was read in. I separated it by "," as this would allow city names like Palmerston North to be read in with ease. This allows future proofing and expansion to other areas with ease and without further code modifications needed to accept this. A sample type that would fail under the "AB15" system would be "Palmerston North Upper Hutt 15" as it would be hard to code for two word places without an easy delimiter to look for, this is why I separated each data piece by ",".
+
+Criticism of my code would be the use of dataTypes. They would be the first thing to change if performance were such a great issue with this code. I used doubles instead of floats and other things like HashMaps and ArrayLists over the more basic arrays. These are more costly in terms of memory, but in today's memory standards it isn't as big an issue. The use of double instead of float increases precision but also increases resource usage based on processor. The code itself is fairly hardy and can expand and scale fairly easily.
+
+To recap:
+
+Pros
+UI doesn't wait for other parts so it feels right to the user
+Has pretty much all features asked for in brief I think
+Code is fairly logical and broken into bite size pieces with minimised code reuse
+
+Cons
+Probably uses too much memory for performance issues to arise if this were scaled quite large
+Has a bug that if I had more time I would like to find. ("A to A"); Also the UI was programmed to not allow this as input for the moment, but I know the code will just return "A" and 0.0. Sorry
+
+
+Was quite a fun challenge that was set and I quite enjoyed it!
+Thank you once again for the opportunity.
+
+Taran Busby
