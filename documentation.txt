@@ -29,6 +29,7 @@ Cons
 Probably uses too much memory for performance issues to arise if this were scaled quite large
 Has a bug that if I had more time I would like to find. ("A to A"); Also the UI was programmed to not allow this as input for the moment, but I know the code will just return "A" and 0.0. Sorry
 
+The other thing is it cannot do "Journey Planner" feature yet as, I, for the life of me cannot get it working! My understanding of what I need to make it work is to use a path weighting of 1.0 for all possible routes and test it against the max number / exact number then store it in list if it complies with if test of boundary. Display it in a JList<String> and then add the distances in another JList<double> or some form of UI display like a table where the possible routes can be sorted by distances etc. Of course it is all about building the backend first and getting it working there before trying to build the UI side... if only I had more time to work on it! I think I might spend more time on this, just to see if what I thought could actually solve it.
 
 Was quite a fun challenge that was set and I quite enjoyed it!
 Thank you once again for the opportunity.
