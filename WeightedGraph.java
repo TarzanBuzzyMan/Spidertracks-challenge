@@ -4,6 +4,12 @@
  * the route from A to A as it will just return A with a distance of 0. Create this class by calling
  * the constructor and passing in the pathWeights (node and edge). Run the algorithm by calling 
  * findBestPath(ArrayList<String> nodesToTraverse) and passing in a list of the nodes to traverse.
+ * Call testPathPossible to test a possible input path to see if it can be traversed and the distance
+ * of said path.
+ *
+ * // TODO: add a new method that returns type ArrayList<ArrayList<String> of all possible routes
+ *			between start and end whose distance is less than a max value or equal to an exact value.
+ *			Use a new pathWeight where if edge possible the weight is 1.0 only.
  *
  * Author - Taran Busby
  * Date - 5/10/2014
@@ -19,6 +25,8 @@ public class WeightedGraph {
 	private static ArrayList<String> nodesTraversed = null;
 	private static ArrayList<String> bestPaths = null;
 	private static double shortestDistance = 0.0;
+	private static double distance = 0.0;
+	private static boolean inputPathPossible = false;
 	
 	// Constructor, pass it the path weighting - nodes/edges
 	public WeightedGraph(Map<String, Map<String, Double>> pathWeighting) {
@@ -39,6 +47,11 @@ public class WeightedGraph {
 		bestPaths = new ArrayList<String>();
 		shortestDistance = 0.0;
 		
+		if (nodesToTraverse.size() <= 1) {
+			bestPaths.add("Not possible");
+			return bestPaths;
+		}
+		
 		for (int i = 0; i < nodesToTraverse.size(); i++) {
 			String startNode = nodesToTraverse.get(i);
 			if ((i+1) >= nodesToTraverse.size())
@@ -52,6 +65,32 @@ public class WeightedGraph {
 		return bestPaths;
 	}
 	
+	// call testPathPossible to find out if a given input path is possible and to find
+	// the distance of said path
+	// the variables are stored in this class once run so can be fetched later if necessary
+	public static boolean testPathPossible(ArrayList<String> nodesToTraverse) {
+		inputPathPossible = true;
+		
+		if (nodesToTraverse.size() <= 1)
+			return false;
+		
+		for (int i = 0; i < nodesToTraverse.size(); i++) {
+			String startNode = nodesToTraverse.get(i);
+			if ((i+1) >= nodesToTraverse.size())
+				break;
+			String endNode = nodesToTraverse.get(i+1);
+			if (pathWeight.get(startNode).get(endNode) < 0)
+				inputPathPossible = false;
+			else
+				distance += pathWeight.get(startNode).get(endNode);
+		}
+		
+		if (!inputPathPossible)
+			distance = 0.0;
+		
+		return inputPathPossible;
+	}
+	
 	public static ArrayList<String> getNodesTraversed() {
 		return nodesTraversed;
 	}
@@ -60,8 +99,16 @@ public class WeightedGraph {
 		return bestPaths;
 	}
 	
-	public static double getDistance() {
+	public static double getShortestDistance() {
 		return shortestDistance;
+	}
+	
+	public static double getDistance() {
+		return distance;
+	}
+	
+	public static boolean getInputPathPossible() {
+		return inputPathPossible;
 	}
 	
 	// This bestPath method uses Dijkstra's algorithm
@@ -92,8 +139,8 @@ public class WeightedGraph {
 			bestDistTotalIsKnown.put(nextNode, false);
 		}
 		
-		bestDistTotalSoFar.put(start, 0.0);
-		bestDistTotalIsKnown.put(start, true);
+		bestDistTotalSoFar.put(start, -1.0);
+		bestDistTotalIsKnown.put(start, false);
 		
 		while (!bestDistTotalIsKnown.get(dest)) {
 			
