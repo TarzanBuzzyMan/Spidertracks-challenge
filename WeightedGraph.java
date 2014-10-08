@@ -70,6 +70,7 @@ public class WeightedGraph {
 	// the variables are stored in this class once run so can be fetched later if necessary
 	public static boolean testPathPossible(ArrayList<String> nodesToTraverse) {
 		inputPathPossible = true;
+		distance = 0.0;
 		
 		if (nodesToTraverse.size() <= 1)
 			return false;
